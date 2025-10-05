@@ -1,5 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { uid } from 'uid';
+import Home from '../LandingPage/Home';
+import axios from 'axios';
 
 const Hero = () => {
     const [form, setForm] = useState({
@@ -14,13 +18,21 @@ const Hero = () => {
     customerId: ''
   });
 
+  let customerId=uid();
+  const navigate = useNavigate();
+
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; 
     setForm({
       ...form,
-      [name]: value
+      [name]: value,
+      customerId: customerId
     });
+    
   };
+
+  
 
   const calculateProfit = () => {
     const { costPrice, sellingPrice, expensePrice } = form;
@@ -30,16 +42,38 @@ const Hero = () => {
       parseFloat(expensePrice || 0);
     return isNaN(profit) ? '' : profit.toFixed(2);
   };
+
+  const PostHandler = async(e) => {
+    e.preventDefault();
+    console.log(form);
+    try{
+      await axios.post('http://localhost:5000/api/product/data/',form,{
+        headers:{
+          'Content-Type':'application/json',
+        }
+      });
+      navigate("/");
+    }catch(error){
+      console.error("Error posting data:", error);
+    }
+
+
+  }
+
+
+
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">Product Entry Form</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-4" method='post' onSubmit={PostHandler}>
           {/* Fields */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">Product Name</label>
-            <input type="text" name="productName" value={form.productName} onChange={handleChange}
+            <input required type="text" name="productName" value={form.productName} onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md" />
           </div>
 
@@ -93,16 +127,17 @@ const Hero = () => {
 
           <div>
             <label className="block font-medium text-gray-700 mb-1">Customer ID</label>
-            <input type="text" name="customerId" value={form.customerId} onChange={handleChange}
+            <input type="text" name="customerId" value={customerId} onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md" />
           </div>
-        </div>
+          <div className="mt-6  justify-center items-center flex flex-row">
+          <input className="bg-blue-600 text-white px-6 py-2 rounded cursor-pointer hover:bg-blue-700 transition" type='submit' value='Submit' />
 
-        <div className="mt-6 text-center">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-            Submit
-          </button>
         </div>
+          
+        </form>
+
+        
       </div>
     </div>
   )

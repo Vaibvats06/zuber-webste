@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-
 const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("user");
@@ -10,7 +9,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center px-8 py-4 bg-gray-100">
+    <div className="flex justify-between items-center px-8 py-4 bg-gray-100 border-b-2 border-slate-200">
       <h1 className="text-2xl font-bold">Zoyis</h1>
       <div>
         {isLoggedIn ? (

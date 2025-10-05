@@ -1,22 +1,34 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {toast} from "react-hot-toast";
+
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    // Mock validation
-    if (email === "zoyisclub@gmail.com" && password === "Groww@12") {
-      localStorage.setItem("user", "true");
-      navigate("/product-entry");
-    } else {
-      alert("Invalid credentials");
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const validation = await axios.post('http://localhost:5000/api/user/login', { email, password });
+    console.log(validation); // full response
+    if (validation.status === 200) {
+      toast.success("Login successful");
+      localStorage.setItem("token", validation.data.token);
+      navigate("/dashboard");
     }
-  };
+  } catch (error) {
+    if (error.response?.status === 400) {
+      console.error("Error Status:", error.response.status); // e.g. 400
+      toast.error(error.response.data.message || "Invalid email or password");
+    } else {
+      console.error("Error:", error.message);
+      toast.error("Login failed. Please try again.");
+    }
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">

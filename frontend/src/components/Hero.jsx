@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uid } from 'uid';
-import Home from '../LandingPage/Home';
+
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Hero = () => {
     const [form, setForm] = useState({
@@ -45,13 +46,13 @@ const Hero = () => {
 
   const PostHandler = async(e) => {
     e.preventDefault();
-    console.log(form);
     try{
       await axios.post('http://localhost:5000/api/product/data/',form,{
         headers:{
           'Content-Type':'application/json',
         }
       });
+      toast.success("Data added successfully");
       navigate("/");
     }catch(error){
       console.error("Error posting data:", error);
@@ -65,7 +66,7 @@ const Hero = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
+    <div className="min-h-[calc(100vh-120px)] bg-gray-100 p-4 flex items-center justify-center">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">Product Entry Form</h2>
         

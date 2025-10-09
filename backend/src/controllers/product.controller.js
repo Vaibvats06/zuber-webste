@@ -1,5 +1,14 @@
 import Product from '../models/product.model.js';
-export function getAllProducts(req, res) {
+export async function getAllProducts(req, res) {
+    console.log('Fetching all products');
+    try {
+        const products = await Product.find();
+        
+        res.status(200).json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    } 
 }
 export async function createDashboardData(req, res) {
     try {

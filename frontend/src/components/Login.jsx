@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
@@ -17,7 +18,8 @@ const Login = () => {
     if (validation.status === 200) {
       toast.success("Login successful");
       localStorage.setItem("token", validation.data.token);
-      navigate("/dashboard");
+      // sessionStorage.setItem("token", validation.data.token);
+      navigate("/add/product");
     }
   } catch (error) {
     if (error.response?.status === 400) {
@@ -31,7 +33,7 @@ const Login = () => {
 };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-[calc(100vh-130px)] bg-gray-100">
       <form
         onSubmit={handleLogin}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-sm"
@@ -74,6 +76,16 @@ const Login = () => {
         >
           Login
         </button>
+        <div className="flex  mt-4">
+          <Link className="text-sm mx-auto text-blue-600 hover:underline" to="/password/forgot">Forgot Password</Link>
+        </div>
+      <hr className="my-4" />
+      <Link
+          to={'/register'}
+          className="mx-auto flex w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          <p className="mx-auto">Create New Account</p>
+        </Link>
       </form>
     </div>
   );

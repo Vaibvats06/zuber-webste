@@ -1,8 +1,6 @@
 {
   "name": "zuber_website",
   "private": true,
-  "homepage": "https://Vaibvats06.github.io/zuber-website",
-
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,12 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.12.2",
+    "email-validator": "^2.0.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.6.0",

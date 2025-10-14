@@ -16,16 +16,7 @@ import { useEffect } from "react";
 function App() {
   const userData = async() => {
     
-    try {
-      const response = await axios.get('https://zuber-webste.onrender.com/api/product/products');
-      return response.data;
-    }catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
-  useEffect(() => {
-    userData();
-  }, []);
+  }
 
   return (
     <div className="">

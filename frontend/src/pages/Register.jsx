@@ -16,7 +16,7 @@ const registerHandler = async(e) => {
       if(!emailValidator.validate(email)){
         return toast.error("Invalid Email")
       }
-        await axios.post('http://localhost:5000/api/user/register', { name, email, password })
+        await axios.post('https://zuber-webste.onrender.com/api/user/register', { name, email, password })
         toast.success("Registered Successfully")
     }catch(error){
       toast.error("User already exists")

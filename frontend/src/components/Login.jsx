@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async (e) => {
   e.preventDefault();
   try {
-    const validation = await axios.post('http://localhost:5000/api/user/login', { email, password });
+    const validation = await axios.post('https://zuber-webste.onrender.com/api/user/login', { email, password });
     console.log(validation); // full response
     if (validation.status === 200) {
       toast.success("Login successful");

@@ -47,7 +47,7 @@ const Hero = () => {
   const PostHandler = async(e) => {
     e.preventDefault();
     try{
-      await axios.post('http://localhost:5000/api/product/data/',form,{
+      await axios.post('https://zuber-webste.onrender.com/api/product/data/',form,{
         headers:{
           'Content-Type':'application/json',
         }

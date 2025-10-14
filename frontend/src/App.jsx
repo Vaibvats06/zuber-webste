@@ -17,7 +17,7 @@ function App() {
   const userData = async() => {
     
     try {
-      const response = await axios.get('http://localhost:5000/api/product/products');
+      const response = await axios.get('https://zuber-webste.onrender.com/api/product/products');
       return response.data;
     }catch (error) {
       console.error('Error fetching user data:', error);
